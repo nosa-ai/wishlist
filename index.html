@@ -12,12 +12,12 @@
 <body>
   <div id="app">
     <!-- Navbar -->
-    <nav>
+    <nav role="navigation">
       <div class="logo">🎁 Wishlist App</div>
       <ul class="nav-links">
-        <li><a href="#welcome">Home</a></li>
-        <li><a href="#friends-list">Friends</a></li>
-        <li><a href="#wishlist-content">Wishlist</a></li>
+        <li><a href="#welcome" aria-label="Navigate to Home">Home</a></li>
+        <li><a href="#friends-list" aria-label="Navigate to Friends">Friends</a></li>
+        <li><a href="#wishlist-content" aria-label="Navigate to Wishlist">Wishlist</a></li>
       </ul>
     </nav>
 
@@ -32,25 +32,25 @@
 
     <main>
       <!-- Sidebar with Friend List -->
-      <aside id="friends-list">
+      <aside id="friends-list" aria-label="List of Friends">
         <h2>Friends</h2>
         <ul>
-          <li onclick="showWishlist('Jood')">
+          <li data-friend="Jood" onclick="showWishlist('Jood')">
             <span>💞</span> Jood
           </li>
-          <li onclick="showWishlist('Rayan')">
+          <li data-friend="Rayan" onclick="showWishlist('Rayan')">
             <span>🎾</span> Rayan
           </li>
-          <li onclick="showWishlist('Rawya')">
+          <li data-friend="Rawya" onclick="showWishlist('Rawya')">
             <span>🎮</span> Rawya
           </li>
-          <li onclick="showWishlist('Aryaf')">
+          <li data-friend="Aryaf" onclick="showWishlist('Aryaf')">
             <span>🩺</span> Aryaf
           </li>
-          <li onclick="showWishlist('Arwa')">
+          <li data-friend="Arwa" onclick="showWishlist('Arwa')">
             <span>⚖️</span> Arwa
           </li>
-          <li onclick="showWishlist('Maimona')">
+          <li data-friend="Maimona" onclick="showWishlist('Maimona')">
             <span>☕</span> Maimona
           </li>
         </ul>
@@ -59,7 +59,9 @@
       <!-- Wishlist Content -->
       <section id="wishlist-content">
         <h2 id="friend-name">Select a Friend to View Their Wishlist</h2>
-        <ul id="wishlist-items"></ul>
+        <ul id="wishlist-items">
+          <p id="empty-message" style="display: none;">No items in this wishlist yet.</p>
+        </ul>
         <div id="add-item-section">
           <input 
             type="text" 
@@ -67,7 +69,7 @@
             placeholder="Add a new gift idea..." 
             aria-label="New gift idea"
           />
-          <button onclick="addItem()">Add Gift</button>
+          <button id="add-button" onclick="addItem()">Add Gift</button>
         </div>
       </section>
     </main>
@@ -76,9 +78,9 @@
     <footer>
       <p>&copy; 2025 Birthday Gifts Wishlist</p>
       <div class="footer-links">
-        <a href="#welcome">Home</a>
-        <a href="#friends-list">Friends</a>
-        <a href="#wishlist-content">Wishlist</a>
+        <a href="#welcome" aria-label="Back to Home">Home</a>
+        <a href="#friends-list" aria-label="Back to Friends">Friends</a>
+        <a href="#wishlist-content" aria-label="Back to Wishlist">Wishlist</a>
       </div>
     </footer>
   </div>
