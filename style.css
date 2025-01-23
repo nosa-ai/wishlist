@@ -1,254 +1,162 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
+/* General Styles */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #fff5f7; /* Light pink background */
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
   color: #333;
   line-height: 1.6;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul {
-  list-style: none;
-}
-
-/* App Structure */
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Navbar */
-nav {
-  background-color: #f06292; /* Soft pink */
-  color: white;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-nav .logo {
-  font-size: 26px;
-  font-weight: bold;
-}
-
-nav .nav-links {
-  display: flex;
-  gap: 15px;
-}
-
-nav .nav-links a {
-  color: white;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 20px;
-  background-color: #f8bbd0; /* Light pink hover */
-  transition: background-color 0.3s;
-}
-
-nav .nav-links a:hover {
-  background-color: #f48fb1; /* Medium pink */
-}
-
-/* Welcome Section */
-#welcome {
-  background: linear-gradient(to right, #f06292, #f48fb1);
-  color: white;
-  text-align: center;
-  padding: 60px 20px;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-
-#welcome h1 {
-  font-size: 38px;
-  margin-bottom: 15px;
-  font-family: 'Georgia', serif;
-}
-
-#welcome p {
-  font-size: 18px;
-  font-style: italic;
-}
-
-/* Main Content */
-main {
-  display: flex;
-  flex: 1;
-}
-
-/* Sidebar */
-#friends-list {
-  width: 30%;
-  background-color: #f8bbd0; /* Light pink */
-  border-right: 2px solid #f48fb1; /* Medium pink */
+.container {
+  max-width: 800px;
+  margin: 20px auto;
   padding: 20px;
-  overflow-y: auto;
-  border-radius: 0 20px 20px 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#friends-list h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #880e4f; /* Deep pink */
-}
-
-#friends-list ul {
-  padding: 0;
-}
-
-#friends-list li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  background-color: #fce4ec; /* Pale pink */
-}
-
-#friends-list li:hover {
-  background-color: #f48fb1; /* Medium pink */
-  transform: translateX(5px);
-}
-
-#friends-list span {
-  font-size: 22px;
-  color: #880e4f; /* Deep pink */
-}
-
-/* Wishlist Content */
-#wishlist-content {
-  flex: 1;
-  padding: 30px;
-  background-color: #fff5f7; /* Soft pink background */
-  border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-}
-
-#wishlist-content h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #880e4f; /* Deep pink */
-}
-
-#wishlist-items li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  border: 1px solid #f8bbd0; /* Light pink border */
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
+/* Header Styling */
+header {
+  background: linear-gradient(to right, #4caf50, #81c784);
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#wishlist-items button {
-  background-color: #e57373; /* Soft red */
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+header h1 {
+  margin: 0;
+  font-size: 2rem;
 }
 
-#wishlist-items button:hover {
-  background-color: #d32f2f; /* Deep red */
+header p {
+  margin: 5px 0 0;
+  font-size: 1rem;
 }
 
-/* Add Item Section */
-#add-item-section {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-}
-
-#add-item-section input {
-  width: 70%;
-  padding: 12px;
-  border: 1px solid #f48fb1; /* Medium pink */
-  border-radius: 10px;
-  margin-right: 10px;
-  background-color: #fce4ec; /* Light pink */
-}
-
-#add-item-section input:focus {
-  outline: none;
-  border-color: #f06292; /* Bright pink */
-}
-
-#add-item-section button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background-color: #f06292; /* Bright pink */
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-#add-item-section button:hover {
-  background-color: #d81b60; /* Deep pink */
-  transform: scale(1.1);
-}
-
-/* Footer */
+/* Footer Styling */
 footer {
-  background-color: #f06292; /* Bright pink */
-  color: white;
   text-align: center;
-  padding: 20px;
-  font-size: 14px;
-  border-top-left-radius: 50px;
-  border-top-right-radius: 50px;
+  padding: 10px 0;
+  background: #333;
+  color: #fff;
+  font-size: 0.9rem;
 }
 
-footer .footer-links a {
-  color: white;
+footer a {
+  color: #4caf50;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.priority-low {
+  color: green;
   font-weight: bold;
-  margin: 0 10px;
-  transition: color 0.3s;
 }
 
-footer .footer-links a:hover {
-  color: #ffd1dc; /* Pale pink hover */
+.priority-medium {
+  color: orange;
+  font-weight: bold;
+}
+
+.priority-high {
+  color: red;
+  font-weight: bold;
+}
+
+/* Filter Section */
+#filter-section {
+  margin: 20px 0;
+}
+
+#filter-section label {
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+#filter-section select {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Loading and Error Messages */
+#loading, #error {
+  margin: 20px auto;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  display: none;
+}
+
+#loading {
+  color: #4caf50;
+}
+
+#loading::after {
+  content: '⏳';
+  margin-left: 5px;
+  animation: spin 1s infinite linear;
+}
+
+#error {
+  color: #d32f2f;
+  background: #fdecea;
+  border: 1px solid #f44336;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  main {
-    flex-direction: column;
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
   }
 
-  #friends-list {
-    width: 100%;
-    border-right: none;
-    border-bottom: 2px solid #f48fb1; /* Medium pink */
+  table {
+    font-size: 0.9rem;
+    overflow-x: auto;
   }
 
-  #wishlist-content {
-    width: 100%;
-    margin: 20px 0;
+  th, td {
+    padding: 8px;
   }
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
