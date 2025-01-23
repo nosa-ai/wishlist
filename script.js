@@ -25,7 +25,7 @@ function showWishlist(friend) {
   wishlistRef.on("value", snapshot => {
     const wishlist = snapshot.val() || [];
     const wishlistItems = document.getElementById("wishlist-items");
-    wishlistItems.innerHTML = "";
+    wishlistItems.innerHTML = ""; // Clear the current list
 
     if (wishlist.length === 0) {
       wishlistItems.innerHTML = "<p>No items in this wishlist yet.</p>";
@@ -48,25 +48,32 @@ function addItem() {
   const newItemInput = document.getElementById("new-item");
   const newItem = newItemInput.value.trim();
 
+  // Validate the input
   if (newItem === "") {
-    alert("Enter a gift idea!");
+    alert("Please enter a gift idea!");
     return;
   }
 
+  // Get reference to the friend's wishlist in Firebase
   const wishlistRef = db.ref(`wishlists/${friend}`);
 
+  // Add the new item to the wishlist
   wishlistRef.once("value").then(snapshot => {
     const wishlist = snapshot.val() || [];
-    wishlist.push(newItem);
-    wishlistRef.set(wishlist)
-      .then(() => {
-        newItemInput.value = ""; // Clear the input field
-        alert(`"${newItem}" has been added to ${friend}'s wishlist!`);
-      })
-      .catch(error => {
-        console.error("Error adding item:", error);
-        alert("Failed to add item. Please try again.");
-      });
+    if (!wishlist.includes(newItem)) { // Prevent duplicates
+      wishlist.push(newItem); // Add new item to the wishlist
+      wishlistRef.set(wishlist) // Save the updated wishlist to Firebase
+        .then(() => {
+          newItemInput.value = ""; // Clear the input field
+          alert(`"${newItem}" has been added to ${friend}'s wishlist!`);
+        })
+        .catch(error => {
+          console.error("Error adding item:", error);
+          alert("Failed to add item. Please try again.");
+        });
+    } else {
+      alert(`"${newItem}" is already in ${friend}'s wishlist!`);
+    }
   });
 }
 
@@ -74,11 +81,12 @@ function addItem() {
 function removeItem(friend, item) {
   const wishlistRef = db.ref(`wishlists/${friend}`);
 
+  // Remove the item from the wishlist
   wishlistRef.once("value").then(snapshot => {
     const wishlist = snapshot.val() || [];
-    const updatedWishlist = wishlist.filter(i => i !== item);
+    const updatedWishlist = wishlist.filter(i => i !== item); // Filter out the item
 
-    wishlistRef.set(updatedWishlist)
+    wishlistRef.set(updatedWishlist) // Save the updated wishlist to Firebase
       .then(() => {
         alert(`"${item}" has been removed from ${friend}'s wishlist.`);
       })
@@ -92,5 +100,5 @@ function removeItem(friend, item) {
 // Initialize Default View
 window.onload = function () {
   // Load the first friend's wishlist by default
-  showWishlist("Alice");
+  showWishlist("Jood");
 };
