@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Gifts Wishlist</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Navbar -->
+    <nav>
+      <div class="logo">🎁 Wishlist App</div>
+      <ul class="nav-links">
+        <li><a href="#welcome">Home</a></li>
+        <li><a href="#friends-list">Friends</a></li>
+        <li><a href="#wishlist-content">Wishlist</a></li>
+      </ul>
+    </nav>
+
+    <!-- Welcome Section -->
+    <section id="welcome">
+      <h1>Welcome to the Birthday Gifts Wishlist App!</h1>
+      <p>
+        Organize gift ideas for your friends and keep track of their wishlists in one place. 
+        Select a friend from the list to view or edit their wishlist.
+      </p>
+    </section>
+
+    <main>
+      <!-- Sidebar with Friend List -->
+      <aside id="friends-list">
+        <h2>Friends</h2>
+        <ul>
+          <li onclick="showWishlist('Jood')">
+            <span>💞</span> Jood
+          </li>
+          <li onclick="showWishlist('Rayan')">
+            <span>🎾</span> Rayan
+          </li>
+          <li onclick="showWishlist('Rawya')">
+            <span>🎮</span> Rawya
+          </li>
+          <li onclick="showWishlist('Aryaf')">
+            <span>🩺</span> Aryaf
+          </li>
+          <li onclick="showWishlist('Arwa')">
+            <span>⚖️</span> Arwa
+          </li>
+          <li onclick="showWishlist('Maimona')">
+            <span>☕</span> Maimona
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Wishlist Content -->
+      <section id="wishlist-content">
+        <h2 id="friend-name">Select a Friend to View Their Wishlist</h2>
+        <ul id="wishlist-items"></ul>
+        <div id="add-item-section">
+          <input 
+            type="text" 
+            id="new-item" 
+            placeholder="Add a new gift idea..." 
+            aria-label="New gift idea"
+          />
+          <button onclick="addItem()">Add Gift</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Birthday Gifts Wishlist</p>
+      <div class="footer-links">
+        <a href="#welcome">Home</a>
+        <a href="#friends-list">Friends</a>
+        <a href="#wishlist-content">Wishlist</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
