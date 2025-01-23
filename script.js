@@ -1,13 +1,13 @@
 // Firebase Configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCnifO0HruDgFMqApZttNsVDZDx4enzqNw",
-    authDomain: "wishlist-app-nosa.firebaseapp.com",
-    projectId: "wishlist-app-nosa",
-    storageBucket: "wishlist-app-nosa.firebasestorage.app",
-    messagingSenderId: "488633479117",
-    appId: "1:488633479117:web:e2bc653d75a80b4d441e84",
-    measurementId: "G-353JZ5TGB4"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyCnifO0HruDgFMqApZttNsVDZDx4enzqNw",
+  authDomain: "wishlist-app-nosa.firebaseapp.com",
+  projectId: "wishlist-app-nosa",
+  storageBucket: "wishlist-app-nosa.firebasestorage.app",
+  messagingSenderId: "488633479117",
+  appId: "1:488633479117:web:e2bc653d75a80b4d441e84",
+  measurementId: "G-353JZ5TGB4"
+};
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
@@ -23,18 +23,18 @@ function showWishlist(friend) {
 
   // Fetch and render the wishlist items
   wishlistRef.on("value", snapshot => {
-    const wishlist = snapshot.val() || [];
+    const wishlist = snapshot.val() || []; // Array of objects: [{ item: "Book" }, { item: "Headphones" }]
     const wishlistItems = document.getElementById("wishlist-items");
     wishlistItems.innerHTML = ""; // Clear the current list
 
     if (wishlist.length === 0) {
       wishlistItems.innerHTML = "<p>No items in this wishlist yet.</p>";
     } else {
-      wishlist.forEach(item => {
+      wishlist.forEach(entry => {
         wishlistItems.innerHTML += `
           <li>
-            ${item}
-            <button onclick="removeItem('${friend}', '${item}')">Remove</button>
+            ${entry.item}
+            <button onclick="removeItem('${friend}', '${entry.item}')">Remove</button>
           </li>
         `;
       });
@@ -59,10 +59,11 @@ function addItem() {
 
   // Add the new item to the wishlist
   wishlistRef.once("value").then(snapshot => {
-    const wishlist = snapshot.val() || [];
-    if (!wishlist.includes(newItem)) { // Prevent duplicates
-      wishlist.push(newItem); // Add new item to the wishlist
-      wishlistRef.set(wishlist) // Save the updated wishlist to Firebase
+    const wishlist = snapshot.val() || []; // If null, initialize as an empty array
+    // Check for duplicates
+    if (!wishlist.some(entry => entry.item === newItem)) {
+      wishlist.push({ item: newItem }); // Add the new item as an object
+      wishlistRef.set(wishlist) // Save back to Firebase
         .then(() => {
           newItemInput.value = ""; // Clear the input field
           alert(`"${newItem}" has been added to ${friend}'s wishlist!`);
@@ -78,17 +79,17 @@ function addItem() {
 }
 
 // Function to Remove an Item
-function removeItem(friend, item) {
+function removeItem(friend, itemToRemove) {
   const wishlistRef = db.ref(`wishlists/${friend}`);
 
   // Remove the item from the wishlist
   wishlistRef.once("value").then(snapshot => {
     const wishlist = snapshot.val() || [];
-    const updatedWishlist = wishlist.filter(i => i !== item); // Filter out the item
+    const updatedWishlist = wishlist.filter(entry => entry.item !== itemToRemove); // Remove the matching item
 
-    wishlistRef.set(updatedWishlist) // Save the updated wishlist to Firebase
+    wishlistRef.set(updatedWishlist) // Save the updated wishlist back to Firebase
       .then(() => {
-        alert(`"${item}" has been removed from ${friend}'s wishlist.`);
+        alert(`"${itemToRemove}" has been removed from ${friend}'s wishlist.`);
       })
       .catch(error => {
         console.error("Error removing item:", error);
