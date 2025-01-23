@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
+  background-color: #fff5f7; /* Light pink background */
   color: #333;
   line-height: 1.6;
 }
@@ -30,19 +30,20 @@ ul {
 
 /* Navbar */
 nav {
-  background-color: #4CAF50;
+  background-color: #f06292; /* Soft pink */
   color: white;
-  padding: 10px 20px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 nav .logo {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
 }
 
@@ -51,38 +52,38 @@ nav .nav-links {
   gap: 15px;
 }
 
-nav .nav-links li {
-  display: inline;
-}
-
 nav .nav-links a {
   color: white;
   font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: #f8bbd0; /* Light pink hover */
   transition: background-color 0.3s;
 }
 
 nav .nav-links a:hover {
-  background-color: #45a049;
+  background-color: #f48fb1; /* Medium pink */
 }
 
 /* Welcome Section */
 #welcome {
-  background: linear-gradient(to right, #4CAF50, #45a049);
+  background: linear-gradient(to right, #f06292, #f48fb1);
   color: white;
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
 #welcome h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
+  font-size: 38px;
+  margin-bottom: 15px;
+  font-family: 'Georgia', serif;
 }
 
 #welcome p {
   font-size: 18px;
-  margin-top: 10px;
+  font-style: italic;
 }
 
 /* Main Content */
@@ -93,16 +94,18 @@ main {
 
 /* Sidebar */
 #friends-list {
-  width: 25%;
-  background-color: #f4f4f4;
-  border-right: 1px solid #ddd;
+  width: 30%;
+  background-color: #f8bbd0; /* Light pink */
+  border-right: 2px solid #f48fb1; /* Medium pink */
   padding: 20px;
   overflow-y: auto;
+  border-radius: 0 20px 20px 0;
 }
 
 #friends-list h2 {
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 20px;
+  color: #880e4f; /* Deep pink */
 }
 
 #friends-list ul {
@@ -113,34 +116,37 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  background-color: #fce4ec; /* Pale pink */
 }
 
 #friends-list li:hover {
-  background-color: #ddd;
+  background-color: #f48fb1; /* Medium pink */
+  transform: translateX(5px);
 }
 
 #friends-list span {
-  font-size: 20px;
+  font-size: 22px;
+  color: #880e4f; /* Deep pink */
 }
 
 /* Wishlist Content */
 #wishlist-content {
   flex: 1;
-  padding: 20px;
+  padding: 30px;
+  background-color: #fff5f7; /* Soft pink background */
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px;
 }
 
 #wishlist-content h2 {
   font-size: 28px;
   margin-bottom: 20px;
-}
-
-#wishlist-items {
-  list-style: none;
-  padding: 0;
+  color: #880e4f; /* Deep pink */
 }
 
 #wishlist-items li {
@@ -148,15 +154,15 @@ main {
   justify-content: space-between;
   align-items: center;
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
+  border: 1px solid #f8bbd0; /* Light pink border */
+  border-radius: 10px;
+  padding: 12px;
   margin-bottom: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #wishlist-items button {
-  background-color: #e74c3c;
+  background-color: #e57373; /* Soft red */
   color: white;
   border: none;
   padding: 5px 10px;
@@ -166,47 +172,55 @@ main {
 }
 
 #wishlist-items button:hover {
-  background-color: #c0392b;
+  background-color: #d32f2f; /* Deep red */
 }
 
 /* Add Item Section */
 #add-item-section {
   margin-top: 20px;
+  display: flex;
+  align-items: center;
 }
 
 #add-item-section input {
   width: 70%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: 12px;
+  border: 1px solid #f48fb1; /* Medium pink */
+  border-radius: 10px;
   margin-right: 10px;
+  background-color: #fce4ec; /* Light pink */
+}
+
+#add-item-section input:focus {
+  outline: none;
+  border-color: #f06292; /* Bright pink */
 }
 
 #add-item-section button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
-  background-color: #4CAF50;
+  border-radius: 10px;
+  background-color: #f06292; /* Bright pink */
   color: white;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 #add-item-section button:hover {
-  background-color: #45a049;
+  background-color: #d81b60; /* Deep pink */
+  transform: scale(1.1);
 }
 
 /* Footer */
 footer {
-  background-color: #4CAF50;
+  background-color: #f06292; /* Bright pink */
   color: white;
   text-align: center;
-  padding: 15px;
-}
-
-footer .footer-links {
-  margin-top: 10px;
+  padding: 20px;
+  font-size: 14px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
 }
 
 footer .footer-links a {
@@ -217,7 +231,7 @@ footer .footer-links a {
 }
 
 footer .footer-links a:hover {
-  color: #ddd;
+  color: #ffd1dc; /* Pale pink hover */
 }
 
 /* Responsive Design */
@@ -229,9 +243,11 @@ footer .footer-links a:hover {
   #friends-list {
     width: 100%;
     border-right: none;
+    border-bottom: 2px solid #f48fb1; /* Medium pink */
   }
 
   #wishlist-content {
     width: 100%;
+    margin: 20px 0;
   }
 }
