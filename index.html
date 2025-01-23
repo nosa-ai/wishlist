@@ -11,56 +11,51 @@
   <header>
     <div class="header-container">
       <h1>🎁 Friends' Wishlist</h1>
-      <p>Submit your wishlist items and view what your friends are wishing for!</p>
+      <p>View and manage wishlist items together in real time!</p>
     </div>
   </header>
 
   <!-- Main Content -->
   <main>
-    <!-- Form Section -->
+    <!-- Add Wishlist Form -->
     <section id="form-section">
-      <h2>Submit Your Wishlist</h2>
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeGg2J7thQ1rL_sLgMcADtjmZs73fK6uulY4TR6O6BhP4V1dQ/viewform?embedded=true"
-  width="640" 
-  height="756" 
-  frameborder="0" 
-  marginheight="0" 
-  marginwidth="0"
-  >Loading…
-</iframe>
+      <h2>Add to Wishlist</h2>
+      <form id="wishlist-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter friend's name" required>
+
+        <label for="gift">Gift:</label>
+        <input type="text" id="gift" placeholder="Enter the gift name" required>
+
+        <label for="priority">Priority:</label>
+        <select id="priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <button type="submit">Add to Wishlist</button>
+      </form>
     </section>
 
-    <!-- Filter Section -->
-    <section id="filter-section">
-      <h2>View Wishlist</h2>
-      <label for="friend-filter">Filter by Name:</label>
-      <select id="friend-filter">
-        <option value="all">All</option>
-        <!-- Dynamic options will be added via JavaScript -->
-      </select>
-    </section>
-
-    <!-- Wishlist Table Section -->
+    <!-- Wishlist Table -->
     <section id="wishlist-section">
+      <h2>Wishlist</h2>
       <table>
         <thead>
           <tr>
+            <th>Timestamp</th>
             <th>Name</th>
-            <th>Wishlist Item</th>
+            <th>Gift</th>
             <th>Priority</th>
           </tr>
         </thead>
         <tbody id="wishlist-table">
-          <!-- Wishlist items will be dynamically loaded here -->
+          <!-- Wishlist items will be dynamically added here -->
         </tbody>
       </table>
     </section>
   </main>
-
-  <!-- Loading and Error Messages -->
-  <div id="loading" class="hidden">Loading wishlist data...</div>
-  <div id="error" class="hidden">Failed to load wishlist data. Please try again later.</div>
-
 
   <script src="script.js"></script>
 </body>
