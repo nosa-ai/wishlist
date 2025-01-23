@@ -3,10 +3,10 @@ const tableBody = document.getElementById('wishlist-table');
 const wishlistForm = document.getElementById('wishlist-form');
 
 // Google Apps Script URL
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwtxNnQ9FrvMPQ7nhM-EUZ8y5NK-JK0zmrKrFb5MHdcZOYWp1w5_A8PwLh-_VQRvvq9FA/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwIDjW-PZ-QfVRvuMqUCk12GvnqkjYiycfmfEZYa0A6Zgr8702fjiP00gkyxQEyI4z5Yg/exec';
 
 // Google Sheet CSV URL
-const sheetURL = 'https://docs.google.com/spreadsheets/d/e/1nYKTQrvj_kwuiPkzAaj3Pm-c9wsN09eQDCa0iDXfbcI/pub?output=csv';
+const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSSsWIxqn5AwmJRv0C9Fn3JpDTF2g5hOnA0k6I_jArIny-pHYvFbVhEuGFGU169mmAhPB_KqkLVuYJ9/pub?output=csv';
 
 // Fetch and display wishlist data from Google Sheets
 const fetchWishlistData = () => {
