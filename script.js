@@ -1,105 +1,96 @@
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCnifO0HruDgFMqApZttNsVDZDx4enzqNw",
-  authDomain: "wishlist-app-nosa.firebaseapp.com",
-  projectId: "wishlist-app-nosa",
-  storageBucket: "wishlist-app-nosa.firebasestorage.app",
-  messagingSenderId: "488633479117",
-  appId: "1:488633479117:web:e2bc653d75a80b4d441e84",
-  measurementId: "G-353JZ5TGB4"
-};
+// Replace with your published Google Sheet URL in CSV format
+const sheetURL = 'https://docs.google.com/spreadsheets/d/1nYKTQrvj_kwuiPkzAaj3Pm-c9wsN09eQDCa0iDXfbcI/pub?output=csv';
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// DOM Elements
+const tableBody = document.getElementById('wishlist-table');
+const filterDropdown = document.getElementById('friend-filter');
+const loadingMessage = document.getElementById('loading');
+const errorMessage = document.getElementById('error');
 
-// Function to Show a Friend's Wishlist
-function showWishlist(friend) {
-  // Update the title dynamically
-  document.getElementById("friend-name").innerText = `${friend}'s Wishlist`;
+// Show loading spinner
+loadingMessage.style.display = 'block';
 
-  // Get reference to the friend's wishlist in Firebase
-  const wishlistRef = db.ref(`wishlists/${friend}`);
+// Fetch data from Google Sheet
+fetch(sheetURL)
+  .then(response => response.text())
+  .then(data => {
+    loadingMessage.style.display = 'none'; // Hide loading spinner
+    const rows = data.split('\n').slice(1); // Skip header row
+    const wishlistData = rows.map(row => {
+      const [name, gift, priority ] = row.split(',');
+      return { name, gift, priority: priority.trim() };
+    });
 
-  // Fetch and render the wishlist items
-  wishlistRef.on("value", snapshot => {
-    const wishlist = snapshot.val() || []; // Array of objects: [{ item: "Book" }, { item: "Headphones" }]
-    const wishlistItems = document.getElementById("wishlist-items");
-    wishlistItems.innerHTML = ""; // Clear the current list
+    populateTable(wishlistData);
+    populateFilter(wishlistData);
+    enableFiltering(wishlistData);
+  })
+  .catch(err => {
+    loadingMessage.style.display = 'none'; // Hide loading spinner
+    errorMessage.style.display = 'block'; // Show error message
+    console.error('Error fetching Google Sheet data:', err);
+  });
 
-    if (wishlist.length === 0) {
-      wishlistItems.innerHTML = "<p>No items in this wishlist yet.</p>";
-    } else {
-      wishlist.forEach(entry => {
-        wishlistItems.innerHTML += `
-          <li>
-            ${entry.item}
-            <button onclick="removeItem('${friend}', '${entry.item}')">Remove</button>
-          </li>
-        `;
-      });
-    }
+// Populate the table with data
+function populateTable(data) {
+  tableBody.innerHTML = ''; // Clear the table
+  data.forEach(entry => {
+    const tr = document.createElement('tr');
+
+    // Create table cells
+    const friendCell = createCell(entry.name);
+    const itemCell = createCell(entry.gift);
+    const priorityCell = createPriorityCell(entry.priority);
+
+    // Append cells to the row
+    tr.appendChild(friendCell);
+    tr.appendChild(itemCell);
+    tr.appendChild(priorityCell);
+
+    // Add the row to the table
+    tableBody.appendChild(tr);
   });
 }
 
-// Function to Add a New Item
-function addItem() {
-  const friend = document.getElementById("friend-name").innerText.split("'s")[0];
-  const newItemInput = document.getElementById("new-item");
-  const newItem = newItemInput.value.trim();
-
-  // Validate the input
-  if (newItem === "") {
-    alert("Please enter a gift idea!");
-    return;
-  }
-
-  // Get reference to the friend's wishlist in Firebase
-  const wishlistRef = db.ref(`wishlists/${friend}`);
-
-  // Add the new item to the wishlist
-  wishlistRef.once("value").then(snapshot => {
-    const wishlist = snapshot.val() || []; // If null, initialize as an empty array
-    // Check for duplicates
-    if (!wishlist.some(entry => entry.item === newItem)) {
-      wishlist.push({ item: newItem }); // Add the new item as an object
-      wishlistRef.set(wishlist) // Save back to Firebase
-        .then(() => {
-          newItemInput.value = ""; // Clear the input field
-          alert(`"${newItem}" has been added to ${friend}'s wishlist!`);
-        })
-        .catch(error => {
-          console.error("Error adding item:", error);
-          alert("Failed to add item. Please try again.");
-        });
-    } else {
-      alert(`"${newItem}" is already in ${friend}'s wishlist!`);
-    }
+// Populate the filter dropdown with unique friend names
+function populateFilter(data) {
+  const uniqueFriends = Array.from(new Set(data.map(entry => entry.name))).sort();
+  uniqueFriends.forEach(name => {
+    const option = document.createElement('option');
+    option.value = name;
+    option.textContent = name;
+    filterDropdown.appendChild(option);
   });
 }
 
-// Function to Remove an Item
-function removeItem(friend, itemToRemove) {
-  const wishlistRef = db.ref(`wishlists/${friend}`);
-
-  // Remove the item from the wishlist
-  wishlistRef.once("value").then(snapshot => {
-    const wishlist = snapshot.val() || [];
-    const updatedWishlist = wishlist.filter(entry => entry.item !== itemToRemove); // Remove the matching item
-
-    wishlistRef.set(updatedWishlist) // Save the updated wishlist back to Firebase
-      .then(() => {
-        alert(`"${itemToRemove}" has been removed from ${friend}'s wishlist.`);
-      })
-      .catch(error => {
-        console.error("Error removing item:", error);
-        alert("Failed to remove item. Please try again.");
-      });
+// Enable filtering by friend
+function enableFiltering(data) {
+  filterDropdown.addEventListener('change', () => {
+    const selectedFriend = filterDropdown.value;
+    const filteredData = selectedFriend === 'all'
+      ? data
+      : data.filter(entry => entry.name === selectedFriend);
+    populateTable(filteredData);
   });
 }
 
-// Initialize Default View
-window.onload = function () {
-  // Load the first friend's wishlist by default
-  showWishlist("Jood");
-};
+// Create a simple cell
+function createCell(content) {
+  const td = document.createElement('td');
+  td.textContent = content || '—'; // Show a dash if the content is empty
+  return td;
+}
+
+// Create a priority cell with styled classes
+function createPriorityCell(priority) {
+  const td = document.createElement('td');
+  td.textContent = priority || '—'; // Show a dash if no priority is provided
+  if (priority.toLowerCase() === 'low') td.classList.add('priority-low');
+  if (priority.toLowerCase() === 'medium') td.classList.add('priority-medium');
+  if (priority.toLowerCase() === 'high') td.classList.add('priority-high');
+  return td;
+}
+
+
+  return td;
+}
